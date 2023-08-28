@@ -1,0 +1,42 @@
+
+lfsr:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00010094 <_start>:
+   10094:	00001517          	auipc	a0,0x1
+   10098:	05e50503          	lb	a0,94(a0) # 110f2 <__DATA_BEGIN__>
+
+0001009c <rand>:
+   1009c:	000005b3          	add	a1,zero,zero
+   100a0:	4629                	li	a2,10
+
+000100a2 <rand_loop>:
+   100a2:	04c58563          	beq	a1,a2,100ec <exit>
+   100a6:	c02a                	sw	a0,0(sp)
+   100a8:	0111                	add	sp,sp,4
+   100aa:	00157293          	and	t0,a0,1
+   100ae:	00457313          	and	t1,a0,4
+   100b2:	4e89                	li	t4,2
+   100b4:	01d35333          	srl	t1,t1,t4
+   100b8:	00857393          	and	t2,a0,8
+   100bc:	4e8d                	li	t4,3
+   100be:	01d3d3b3          	srl	t2,t2,t4
+   100c2:	01057e13          	and	t3,a0,16
+   100c6:	4e91                	li	t4,4
+   100c8:	01de5e33          	srl	t3,t3,t4
+   100cc:	0062c2b3          	xor	t0,t0,t1
+   100d0:	0072c2b3          	xor	t0,t0,t2
+   100d4:	01c2c2b3          	xor	t0,t0,t3
+   100d8:	431d                	li	t1,7
+   100da:	006292b3          	sll	t0,t0,t1
+   100de:	4305                	li	t1,1
+   100e0:	00655533          	srl	a0,a0,t1
+   100e4:	00554533          	xor	a0,a0,t0
+   100e8:	0585                	add	a1,a1,1
+   100ea:	bf65                	j	100a2 <rand_loop>
+
+000100ec <exit>:
+   100ec:	48a9                	li	a7,10
+   100ee:	00000073          	ecall
